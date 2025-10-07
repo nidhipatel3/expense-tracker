@@ -3,6 +3,7 @@ const path = require("path");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const userRoute = require("./routes/user");
 const { checkForAuthenticationCookie } = require('./middlewares/authentication');
@@ -17,11 +18,17 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cookieParser());
 app.use(checkForAuthenticationCookie("token"));
 app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "public/js")));
-app.use(express.static(path.join(__dirname, '../react-app/build')));
+app.use(express.static(path.join(__dirname, '../react-app/build', 'index.html')));
+
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+}));
 
 app.get("/", (req, res) => {
     return res.render("home", {

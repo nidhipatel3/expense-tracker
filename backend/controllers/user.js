@@ -17,32 +17,56 @@ const upload = multer({ storage: storage });
 
 // handle user signup
 async function handleUserSignup(req, res) {
+
     const { fullName, email, password } = req.body;
-    await User.create({
-        fullName,
-        email,
-        password,
-        profileImageURL: `/uploads/${req.file.filename}`
-    });
-    return res.redirect("/");
+
+    if (!fullName || !email || !password) {
+        return res.status(400).send("All fields are required.");
+    }
+    try {
+        await User.create({
+            fullName,
+            email,
+            password,
+            profileImageURL: req.file ? `/uploads/${req.file.filename}` : undefined
+        });
+        return res.redirect("/");
+
+    } catch (err) {
+        console.error('Signup Error:', err);
+        return res.status(500).send(err.message);
+    }
 }
 
 // handle user signin
 async function handleUserSignin(req, res) {
+
     const { email, password } = req.body;
     try {
         const token = await User.matchPasswordAndGenerateToken(email, password);
-        return res.cookie("token", token).redirect("/");
-    } catch (error) {
-        return res.render("signin", {
-            error: "Incorrect Email or Password",
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'Lax',
         });
+
+        const user = await User.findOne({ email });
+        return res.status(200).json({ message: "Login successful", user });
+    } catch (error) {
+        return res.status(401).json({ error: "Incorrect Email or Password" });
     }
 }
 
 // handle user logout
 async function handleUserLogout(req, res) {
-    res.clearCookie("token").redirect("/");
+
+    res.set('Cache-Control', 'no-store');
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'Lax',
+    });
+    return res.status(200).json({ message: 'Logout successful' });
 }
 
 module.exports = {
