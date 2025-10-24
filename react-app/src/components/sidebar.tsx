@@ -18,12 +18,18 @@ const SideBar: React.FC = () => {
   }
 
   return (
-    <div className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style={{ width: "280px", height: "848px" }}>
+    <div className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style={{ width: "280px", height: "864px" }}>
       <ul className="nav nav-pills flex-column mb-auto">
         <li className="nav-item">
           <a href="#" className="nav-link active" aria-current="page">
             <i className="bi bi-speedometer2 me-2" style={{ width: "16", height: "16" }}></i>
             Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="/api/category/getcategories" className="nav-link text-white">
+            <i className="bi bi-diagram-3-fill me-2" style={{ width: "16", height: "16" }}></i>
+            Category
           </a>
         </li>
         <li>

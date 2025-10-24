@@ -7,6 +7,7 @@ const cors = require("cors");
 
 const userRoute = require("./routes/user");
 const { checkForAuthenticationCookie } = require('./middlewares/authentication');
+const categoryRoute = require("./routes/category");
 
 const app = express();
 const PORT = 8001;
@@ -37,5 +38,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userRoute);
+app.use("/api/category", categoryRoute);
 
 app.listen(PORT, () => console.log(`Server started at PORT: ${PORT}`));
