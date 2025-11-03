@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+require("./category");
 
 const expenseSchema = new Schema(
     {
@@ -12,7 +13,7 @@ const expenseSchema = new Schema(
         },
         category: {
             type: Schema.Types.ObjectId,
-            ref: "Category",
+            ref: "category",
             required: true
         },
         date: {

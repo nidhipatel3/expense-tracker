@@ -39,7 +39,7 @@ const SideBar: React.FC = () => {
           </a>
         </li>
         <li>
-          <a href="#" className="nav-link text-white">
+          <a href="/api/expense/getExpenses" className="nav-link text-white">
             <i className="bi bi-wallet me-2" style={{ width: "16", height: "16" }}></i>
             Expense
           </a>

@@ -1,0 +1,30 @@
+.table-container {
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.category-table,
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.category-table th,
+.expense-table th,
+.category-table td,
+.expense-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ccc;
+}
+
+.category-table th,
+.expense-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+body {
+  overflow: hidden;
+}

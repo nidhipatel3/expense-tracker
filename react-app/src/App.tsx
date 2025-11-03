@@ -8,6 +8,9 @@ import { UserProvider } from "./context/UserContext";
 import Category from "./components/Category";
 import CategoryList from "./components/CategoryList";
 import CategoryUpdate from "./components/CategoryUpdate";
+import ExpenseAdd from "./components/Expense";
+import ExpenseList from "./components/ExpenseList";
+import ExpenseUpdate from "./components/ExpenseUpdate";
 
 const App: React.FC = () => {
     return (
@@ -22,9 +25,12 @@ const App: React.FC = () => {
                         <Routes>
                             <Route path="/user/signup" element={<SignUp />} />
                             <Route path="/user/signin" element={<SignIn />} />
-                            <Route path="/api/category/getcategories" element={<CategoryList />}/>
+                            <Route path="/api/category/getcategories" element={<CategoryList />} />
                             <Route path="/api/category/addCategory" element={<Category />} />
                             <Route path="/api/category/:id" element={<CategoryUpdate />} />
+                            <Route path="/api/expense/addExpense" element={<ExpenseAdd />} />
+                            <Route path="/api/expense/getExpenses" element={<ExpenseList />} />
+                            <Route path="/api/expense/:id" element={<ExpenseUpdate />} />
                         </Routes>
                     </div>
                 </div>

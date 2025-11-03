@@ -4,7 +4,7 @@ const { createExpense, getExpenses, updateExpense, deleteExpense, getExpenseById
 const router = Router();
 
 router.post('/addExpense', createExpense);
-router.get('getExpenses', getExpenses);
+router.get('/getExpenses', getExpenses);
 router.route('/:id')
     .patch(updateExpense)
     .delete(deleteExpense)

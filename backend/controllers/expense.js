@@ -1,4 +1,5 @@
 const Expense = require("../models/expense");
+const Category = require("../models/category");
 
 // create expense
 async function createExpense(req, res) {
@@ -39,7 +40,7 @@ async function deleteExpense(req, res) {
 
 // get all expenses
 async function getExpenses(req, res) {
-    const allExpenses = await Expense.find({});
+    const allExpenses = await Expense.find().populate('category', 'name');
     return res.json(allExpenses);
 }
 

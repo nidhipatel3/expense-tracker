@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Category } from "../types";
-import '../styles/category.css';
+import "../styles/index.css";
 import API, { deleteCategory } from '../api/category';
 import { useNavigate } from 'react-router-dom';
 
@@ -55,7 +55,16 @@ const CategoryList: React.FC = () => {
                             {categories.map(cat => (
                                 <tr>
                                     <td key={cat._id}>{cat.name}</td>
-                                    <td>{cat.color}</td>
+                                    <td><div
+                                        style={{
+                                            width: "30px",
+                                            height: "30px",
+                                            borderRadius: "20%",
+                                            backgroundColor: cat.color,
+                                            border: "1px solid #ccc",
+                                        }}
+                                        title={cat.color}
+                                    /></td>
                                     <td>{cat.description}</td>
                                     <td>
                                         <button onClick={() => navigate(`/api/category/${cat._id}`)} className="btn btn-success"><i className="bi bi-pencil-square"></i></button>&nbsp;&nbsp;&nbsp;
