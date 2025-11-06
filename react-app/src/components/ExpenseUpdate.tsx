@@ -9,6 +9,7 @@ const ExpenseUpdate: React.FC = () => {
     const navigate = useNavigate();
     const [categories, setCategories] = useState<Category[]>([]);
     const [formData, setFormData] = useState<Partial<Expense>>({
+        type: "expense",
         amount: 0,
         description: '',
         category: { _id: "", name: "", color: "", description: "" },
@@ -83,6 +84,22 @@ const ExpenseUpdate: React.FC = () => {
             <title>Add Expense</title>
             <div className="container mt-5 me-0">
                 <form onSubmit={handleSubmit}>
+                    <div className="w-50 mb-3">
+                        <label htmlFor="type" className="form-label">
+                            Type
+                        </label>
+                        <select
+                            className="form-select"
+                            aria-label="Default select example"
+                            id="type"
+                            name="type"
+                            value={formData.type || ""}
+                            onChange={handleChange}
+                        >
+                            <option value="expense">Expense</option>
+                            <option value="income">Income</option>
+                        </select>
+                    </div>
                     <div className="w-50 mb-3">
                         <label htmlFor="amount" className="form-label">
                             Amount

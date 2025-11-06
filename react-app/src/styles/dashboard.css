@@ -1,0 +1,20 @@
+.dashboard .cards {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.dashboard .transactions .row {
+  width: 50%;
+  background: #fff;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.dashboard .transactions th,
+.dashboard .transactions td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}

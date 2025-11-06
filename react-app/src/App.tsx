@@ -11,6 +11,7 @@ import CategoryUpdate from "./components/CategoryUpdate";
 import ExpenseAdd from "./components/Expense";
 import ExpenseList from "./components/ExpenseList";
 import ExpenseUpdate from "./components/ExpenseUpdate";
+import Dashboard from "./components/Dashboard";
 
 const App: React.FC = () => {
     return (
@@ -23,6 +24,7 @@ const App: React.FC = () => {
                     </div>
                     <div className="col-10">
                         <Routes>
+                            <Route path="/" element={<Dashboard />} />
                             <Route path="/user/signup" element={<SignUp />} />
                             <Route path="/user/signin" element={<SignIn />} />
                             <Route path="/api/category/getcategories" element={<CategoryList />} />

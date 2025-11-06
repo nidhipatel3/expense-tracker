@@ -28,3 +28,15 @@
 body {
   overflow: hidden;
 }
+
+.red {
+  color: #ef4444;
+}
+
+.green {
+  color: #10b981;
+}
+
+.blue {
+  color: #3b82f6;
+}

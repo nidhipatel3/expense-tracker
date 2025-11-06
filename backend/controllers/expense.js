@@ -3,13 +3,14 @@ const Category = require("../models/category");
 
 // create expense
 async function createExpense(req, res) {
-    const { amount, description, category, date } = req.body;
+    const { type, amount, description, category, date } = req.body;
 
-    if (!amount || !description || !category || !date) {
+    if (!type || !amount || !description || !category || !date) {
         res.status(400).json({ msg: "All fields are required" });
     }
     try {
         await Expense.create({
+            type,
             amount,
             description,
             category,
@@ -24,6 +25,7 @@ async function createExpense(req, res) {
 //update expense
 async function updateExpense(req, res) {
     await Expense.findByIdAndUpdate(req.params.id, {
+        type: req.body.type,
         amount: req.body.amount,
         description: req.body.description,
         category: req.body.category,

@@ -7,6 +7,7 @@ export interface Category {
 
 export interface Expense {
   _id?: string;
+  type: "income" | "expense";
   amount: number;
   description: string;
   category: Category;
