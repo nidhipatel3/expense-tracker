@@ -45,8 +45,8 @@ const CategoryList: React.FC = () => {
                     <table className="category-table">
                         <thead className="table-secondary">
                             <tr>
-                                <th scope="col">Name</th>
                                 <th scope="col">Color</th>
+                                <th scope="col">Name</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -54,7 +54,6 @@ const CategoryList: React.FC = () => {
                         <tbody>
                             {categories.map(cat => (
                                 <tr>
-                                    <td key={cat._id}>{cat.name}</td>
                                     <td><div
                                         style={{
                                             width: "30px",
@@ -65,6 +64,7 @@ const CategoryList: React.FC = () => {
                                         }}
                                         title={cat.color}
                                     /></td>
+                                    <td key={cat._id}>{cat.name}</td>
                                     <td>{cat.description}</td>
                                     <td>
                                         <button onClick={() => navigate(`/api/category/${cat._id}`)} className="btn btn-success"><i className="bi bi-pencil-square"></i></button>&nbsp;&nbsp;&nbsp;
