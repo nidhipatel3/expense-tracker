@@ -1,0 +1,20 @@
+.reports-page {
+    padding: 2rem;
+}
+
+.filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.filters select,
+.filters input {
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.form-label {
+    margin-right: 10px;
+}

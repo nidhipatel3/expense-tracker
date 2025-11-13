@@ -6,22 +6,32 @@ import "../styles/dashboard.css";
 import ExpenseList from "./ExpenseList";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell } from "recharts";
 
-const Dashboard: React.FC = () => {
+interface DashboardProps {
+    expenses?: Expense[];
+    showExpenseList?: boolean;
+    showTitle?: boolean;
+}
 
-    const [expenses, setExpenses] = useState<Expense[]>([]);
+const Dashboard: React.FC<DashboardProps> = ({ expenses: propExpenses, showExpenseList = true, showTitle = true }) => {
+
+    const [expenses, setExpenses] = useState<Expense[]>(propExpenses || []);
 
     useEffect(() => {
         // fetch all expenses
-        const fetchExpenses = async () => {
-            try {
-                const response = await API.get('/api/expense/getExpenses');
-                setExpenses(response.data);
-            } catch (error: any) {
-                console.error("Error fetching expenses:", error.message);
-            }
-        };
-        fetchExpenses();
-    }, []);
+        if (!propExpenses) {
+            const fetchExpenses = async () => {
+                try {
+                    const response = await API.get('/api/expense/getExpenses');
+                    setExpenses(response.data);
+                } catch (error: any) {
+                    console.error("Error fetching expenses:", error.message);
+                }
+            };
+            fetchExpenses();
+        } else {
+            setExpenses(propExpenses);
+        }
+    }, [propExpenses]);
 
     // total income
     const totalIncome = expenses
@@ -68,7 +78,7 @@ const Dashboard: React.FC = () => {
             <section className="dashboard mt-5">
                 <div className="row">
                     <div className="col-6">
-                        <h2>Dashboard</h2>
+                        {showTitle && <h2>Dashboard</h2>}
                         <div className="cards mt-3">
                             <Card title="Balance" value={totalBalance.toFixed(2)} color="blue" />
                             <Card title="Income" value={totalIncome.toFixed(2)} color="green" />
@@ -92,11 +102,11 @@ const Dashboard: React.FC = () => {
                     </div>
                     <div className="col-6">
                         <div className="transcations">
-                            <ExpenseList showButton={false} limit={5} title="Recent Transactions" />
+                            {showExpenseList && <ExpenseList showButton={false} limit={5} title="Recent Transactions" />}
                         </div>
                         <div className="charts">
                             <div className="chart-container">
-                                <h3 className="ms-3">Spending by Category</h3>
+                                <h3 className="ms-3">Expenses by Category</h3>
                                 <ResponsiveContainer width="100%" height={300}>
                                     <PieChart>
                                         <Pie data={categoryData}

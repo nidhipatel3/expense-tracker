@@ -12,6 +12,7 @@ import ExpenseAdd from "./components/Expense";
 import ExpenseList from "./components/ExpenseList";
 import ExpenseUpdate from "./components/ExpenseUpdate";
 import Dashboard from "./components/Dashboard";
+import Reports from "./components/Reports";
 
 const App: React.FC = () => {
     return (
@@ -24,15 +25,16 @@ const App: React.FC = () => {
                     </div>
                     <div className="col-10">
                         <Routes>
-                            <Route path="/" element={<Dashboard />} />
+                            <Route path="/dashboard" element={<Dashboard />} />
                             <Route path="/user/signup" element={<SignUp />} />
                             <Route path="/user/signin" element={<SignIn />} />
-                            <Route path="/api/category/getcategories" element={<CategoryList />} />
-                            <Route path="/api/category/addCategory" element={<Category />} />
-                            <Route path="/api/category/:id" element={<CategoryUpdate />} />
-                            <Route path="/api/expense/addExpense" element={<ExpenseAdd />} />
-                            <Route path="/api/expense/getExpenses" element={<ExpenseList />} />
-                            <Route path="/api/expense/:id" element={<ExpenseUpdate />} />
+                            <Route path="/getCategories" element={<CategoryList />} />
+                            <Route path="/addCategory" element={<Category />} />
+                            <Route path="/category/:id" element={<CategoryUpdate />} />
+                            <Route path="/addExpense" element={<ExpenseAdd />} />
+                            <Route path="/getExpenses" element={<ExpenseList />} />
+                            <Route path="/expense/:id" element={<ExpenseUpdate />} />
+                            <Route path="/reports" element={<Reports />} />
                         </Routes>
                     </div>
                 </div>
