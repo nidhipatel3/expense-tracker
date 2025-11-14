@@ -43,7 +43,7 @@ const CategoryUpdate: React.FC = () => {
         try {
             await updateCategory(id, formData);
             alert("category updated successfully");
-            navigate('/api/category/getcategories');
+            navigate('/getCategories');
         } catch (error) {
             console.error('Error updating category:', error);
             alert('Failed to update category.');

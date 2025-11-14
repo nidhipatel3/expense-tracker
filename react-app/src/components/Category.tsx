@@ -17,7 +17,7 @@ const Category: React.FC = () => {
         try {
             await addCategory(formData);
             alert("category added successfully");
-            navigate("/api/category/getcategories");
+            navigate("/getCategories");
         } catch (error: any) {
             alert(error.message || "something went wrong");
         }

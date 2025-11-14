@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { fetchUser, signin } from '../api/user';
+import { signin } from '../api/user';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 
@@ -18,12 +18,8 @@ const SignIn: React.FC = () => {
     e.preventDefault();
     try {
       const response = await signin(formData);
-      fetchUser();
-
-      const user = response.data.user;
-      const token = response.data.token;
-
-      localStorage.setItem('token', token);
+      const { token, user } = response.data;
+      document.cookie = `token=${token}; path=/;`;
 
       if (user) {
         localStorage.setItem('user', JSON.stringify(user));
@@ -33,7 +29,7 @@ const SignIn: React.FC = () => {
       }
 
       alert('Login successfully');
-      navigate("/");
+      navigate("/dashboard");
 
     } catch (error: any) {
       alert(error.response?.data?.message || 'Login failed');

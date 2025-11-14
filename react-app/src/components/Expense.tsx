@@ -76,7 +76,7 @@ const ExpenseAdd: React.FC = () => {
                 date: new Date(),
             });
             alert("expense added successfully");
-            navigate("/api/expense/getExpenses");
+            navigate("/getExpenses");
         } catch (error: any) {
             alert(error.message || "something went wrong");
         }

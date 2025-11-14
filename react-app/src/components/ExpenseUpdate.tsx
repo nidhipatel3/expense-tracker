@@ -72,7 +72,7 @@ const ExpenseUpdate: React.FC = () => {
             console.log("category", formData.category);
 
             alert("expense updated successfully");
-            navigate('/api/expense/getExpenses');
+            navigate('/getExpenses');
         } catch (error) {
             console.error('Error updating expense:', error);
             alert('Failed to update expense.');

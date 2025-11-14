@@ -41,7 +41,7 @@ const CategoryList: React.FC = () => {
             <title>Category</title>
             <div className="row justify-content-start">
                 <div className="table-container col-9 mt-5">
-                    <a className="btn btn-primary mt-2 mb-5" href="/api/category/addCategory" role="button"> + Add Category</a>
+                    <a className="btn btn-primary mt-2 mb-5" href="/addCategory" role="button"> + Add Category</a>
                     <table className="category-table">
                         <thead className="table-secondary">
                             <tr>
@@ -67,7 +67,7 @@ const CategoryList: React.FC = () => {
                                     <td key={cat._id}>{cat.name}</td>
                                     <td>{cat.description}</td>
                                     <td>
-                                        <button onClick={() => navigate(`/api/category/${cat._id}`)} className="btn btn-success"><i className="bi bi-pencil-square"></i></button>&nbsp;&nbsp;&nbsp;
+                                        <button onClick={() => navigate(`/category/${cat._id}`)} className="btn btn-success"><i className="bi bi-pencil-square"></i></button>&nbsp;&nbsp;&nbsp;
                                         <button onClick={() => handleDelete(cat._id!)} className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                     </td>
                                 </tr>

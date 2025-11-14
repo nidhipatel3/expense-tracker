@@ -49,7 +49,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ showButton = true, limit = 0,
             <div className="row justify-content-start">
                 {title && <h3 className="ms-5">{title}</h3>}
                 <div className="table-container col-9 mt-5">
-                    {showButton && <a className="btn btn-primary mt-2 mb-5" href="/api/expense/addExpense" role="button"> + Add Expense</a>}
+                    {showButton && <a className="btn btn-primary mt-2 mb-5" href="/addExpense" role="button"> + Add Expense/Income</a>}
                     <table className="expense-table">
                         <thead className="table-secondary">
                             <tr>
@@ -70,7 +70,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ showButton = true, limit = 0,
                                     <td className={exp.type === "expense" ? "red" : "green"} key={exp._id}>${exp.amount.toFixed(2)}</td>
                                     <td>{exp.type}</td>
                                     {showButton && <td>
-                                        <button onClick={() => navigate(`/api/expense/${exp._id}`)} className="btn btn-success me-2"><i className="bi bi-pencil-square"></i></button>
+                                        <button onClick={() => navigate(`/expense/${exp._id}`)} className="btn btn-success me-2"><i className="bi bi-pencil-square"></i></button>
                                         <button onClick={() => handleDelete(exp._id!)} className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                     </td>}
                                 </tr>
@@ -83,7 +83,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ showButton = true, limit = 0,
                                         <td className={exp.type === "expense" ? "red" : "green"} key={exp._id}>${exp.amount.toFixed(2)}</td>
                                         <td>{exp.type}</td>
                                         {showButton && <td>
-                                            <button onClick={() => navigate(`/api/expense/${exp._id}`)} className="btn btn-success me-2"><i className="bi bi-pencil-square"></i></button>
+                                            <button onClick={() => navigate(`/expense/${exp._id}`)} className="btn btn-success me-2"><i className="bi bi-pencil-square"></i></button>
                                             <button onClick={() => handleDelete(exp._id!)} className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                         </td>}
                                     </tr>
