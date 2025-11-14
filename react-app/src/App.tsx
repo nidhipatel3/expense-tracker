@@ -13,6 +13,7 @@ import ExpenseList from "./components/ExpenseList";
 import ExpenseUpdate from "./components/ExpenseUpdate";
 import Dashboard from "./components/Dashboard";
 import Reports from "./components/Reports";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App: React.FC = () => {
     return (
@@ -25,16 +26,16 @@ const App: React.FC = () => {
                     </div>
                     <div className="col-10">
                         <Routes>
-                            <Route path="/dashboard" element={<Dashboard />} />
+                            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                             <Route path="/user/signup" element={<SignUp />} />
                             <Route path="/user/signin" element={<SignIn />} />
-                            <Route path="/getCategories" element={<CategoryList />} />
-                            <Route path="/addCategory" element={<Category />} />
-                            <Route path="/category/:id" element={<CategoryUpdate />} />
-                            <Route path="/addExpense" element={<ExpenseAdd />} />
-                            <Route path="/getExpenses" element={<ExpenseList />} />
-                            <Route path="/expense/:id" element={<ExpenseUpdate />} />
-                            <Route path="/reports" element={<Reports />} />
+                            <Route path="/getCategories" element={<ProtectedRoute><CategoryList /></ProtectedRoute>} />
+                            <Route path="/addCategory" element={<ProtectedRoute><Category /></ProtectedRoute>} />
+                            <Route path="/category/:id" element={<ProtectedRoute><CategoryUpdate /></ProtectedRoute>} />
+                            <Route path="/addExpense" element={<ProtectedRoute><ExpenseAdd /></ProtectedRoute>} />
+                            <Route path="/getExpenses" element={<ProtectedRoute><ExpenseList /></ProtectedRoute>} />
+                            <Route path="/expense/:id" element={<ProtectedRoute><ExpenseUpdate /></ProtectedRoute>} />
+                            <Route path="/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
                         </Routes>
                     </div>
                 </div>
