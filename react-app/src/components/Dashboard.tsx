@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Expense } from "../types";
+import { Category, Expense } from "../types";
 import API from "../api/expense";
 import Card from "./Card";
 import "../styles/dashboard.css";
@@ -8,30 +8,39 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, PieC
 
 interface DashboardProps {
     expenses?: Expense[];
+    categories?: Category[];
     showExpenseList?: boolean;
     showTitle?: boolean;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ expenses: propExpenses, showExpenseList = true, showTitle = true }) => {
+const Dashboard: React.FC<DashboardProps> = ({ expenses: propExpenses, categories: propCategories, showExpenseList = true, showTitle = true }) => {
 
     const [expenses, setExpenses] = useState<Expense[]>(propExpenses || []);
+    const [categories, setCategories] = useState<Category[]>(propCategories || []);
 
     useEffect(() => {
-        // fetch all expenses
-        if (!propExpenses) {
-            const fetchExpenses = async () => {
-                try {
+        // fetch all expenses        
+        const fetchExpenses = async () => {
+            try {
+                if (!propExpenses) {
                     const response = await API.get('/api/expense/getExpenses');
                     setExpenses(response.data);
-                } catch (error: any) {
-                    console.error("Error fetching expenses:", error.message);
+                } else {
+                    setExpenses(propExpenses);
                 }
-            };
-            fetchExpenses();
-        } else {
-            setExpenses(propExpenses);
-        }
-    }, [propExpenses]);
+                if (!propCategories) {
+                    const catRes = await API.get('/api/category/getCategories');
+                    setCategories(catRes.data);
+                } else {
+                    setCategories(propCategories);
+                }
+
+            } catch (error: any) {
+                console.error("Error fetching expenses:", error.message);
+            }
+        };
+        fetchExpenses();
+    }, [propExpenses, propCategories]);
 
     // total income
     const totalIncome = expenses
@@ -61,16 +70,21 @@ const Dashboard: React.FC<DashboardProps> = ({ expenses: propExpenses, showExpen
     });
 
     // pie chart for category expense
-    const categories = Array.from(new Set(expenses.map((e) => typeof e.category === "object" ? e.category.name : e.category)));
+    const categoriesData = Array.from(new Set(expenses
+        .filter(e => e.type === "expense")
+        .map((e) => typeof e.category === "object" ? e.category.name : e.category)));
 
-    const categoryData = categories.map((cat) => {
+    const categoryData = categoriesData.map((cat) => {
         const total = expenses
             .filter((e) => (typeof e.category === "object" ? e.category.name : e.category) === cat && e.type === "expense")
             .reduce((prev, cur) => prev + cur.amount, 0);
         return { name: cat, value: total };
     });
 
-    const COLORS = ["#3b82f6", "#ef4444", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899"];
+    const COLORS = categoriesData.map((catName) => {
+        const matchedCategory = categories.find((cat) => cat.name === catName);
+        return matchedCategory?.color;
+    });
 
     return (
         <div>
@@ -115,7 +129,7 @@ const Dashboard: React.FC<DashboardProps> = ({ expenses: propExpenses, showExpen
                                             outerRadius={100}
                                             label>
                                             {categoryData.map((_, index) => (
-                                                <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                                                <Cell key={index} fill={COLORS[index]} />
                                             ))}
                                         </Pie>
                                         <Tooltip />

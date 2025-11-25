@@ -59,7 +59,7 @@ const Reports: React.FC = () => {
                     </select>
                 </div>
             </div>
-            <Dashboard expenses={filtered} showExpenseList={false} showTitle={false} />
+            <Dashboard expenses={filtered} categories={categories} showExpenseList={false} showTitle={false} />
         </div>
     );
 }
