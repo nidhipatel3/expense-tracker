@@ -23,7 +23,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ showButton = true, limit = 0,
                 const response = await API.get('/api/expense/getExpenses');
                 setExpenses(response.data);
             } catch (error: any) {
-                console.error("Error fetching expenses:", error.message);
+                console.error("Error fetching expenses/income:", error.message);
             }
         };
         fetchExpenses();
@@ -31,14 +31,14 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ showButton = true, limit = 0,
 
     // handle expense deletion
     const handleDelete = async (id?: string) => {
-        const confirmDelete = window.confirm('Are you sure you want to delete this expense?');
+        const confirmDelete = window.confirm('Are you sure you want to delete this expense/income?');
         if (confirmDelete) {
             try {
                 await deleteExpense(id);
                 setExpenses((prev) => prev.filter((cat) => cat._id !== id))
             } catch (error) {
-                console.error('Error deleting expense:', error);
-                alert('Failed to delete expense.');
+                console.error('Error deleting expense/income:', error);
+                alert('Failed to delete expense/income.');
             }
         }
     }

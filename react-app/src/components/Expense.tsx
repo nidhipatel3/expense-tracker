@@ -75,7 +75,7 @@ const ExpenseAdd: React.FC = () => {
                 category: { _id: "", name: "", color: "", description: "" },
                 date: new Date(),
             });
-            alert("expense added successfully");
+            alert("expense/income added successfully");
             navigate("/getExpenses");
         } catch (error: any) {
             alert(error.message || "something went wrong");
@@ -99,7 +99,8 @@ const ExpenseAdd: React.FC = () => {
                             value={formData.type}
                             onChange={handleChange}
                         >
-                            <option selected value="expense">Expense</option>
+                            <option selected>Select Type</option>
+                            <option value="expense">Expense</option>
                             <option value="income">Income</option>
                         </select>
                     </div>

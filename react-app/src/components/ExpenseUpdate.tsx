@@ -32,7 +32,7 @@ const ExpenseUpdate: React.FC = () => {
                     setFormData({ ...expData, category: matchedCategory || expData.category });
                 }
             } catch (error) {
-                console.error("Error loading expense", error);
+                console.error("Error loading expense/income", error);
             }
         };
         if (id) fetchData();
@@ -71,11 +71,11 @@ const ExpenseUpdate: React.FC = () => {
             await updateExpense(id, formData);
             console.log("category", formData.category);
 
-            alert("expense updated successfully");
+            alert("expense/income updated successfully");
             navigate('/getExpenses');
         } catch (error) {
-            console.error('Error updating expense:', error);
-            alert('Failed to update expense.');
+            console.error('Error updating expense/income:', error);
+            alert('Failed to update expense/income.');
         }
     }
 
@@ -96,6 +96,7 @@ const ExpenseUpdate: React.FC = () => {
                             value={formData.type || ""}
                             onChange={handleChange}
                         >
+                            <option value="">Select Type</option>
                             <option value="expense">Expense</option>
                             <option value="income">Income</option>
                         </select>
