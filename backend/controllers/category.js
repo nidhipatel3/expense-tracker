@@ -9,11 +9,13 @@ async function createCategory(req, res) {
     }
 
     try {
-        await Category.create({
+        const category = await Category.create({
             name,
             color,
-            description
+            description,
+            userId: req.userId
         })
+        res.json(category);
         res.status(200).json({ msg: "category added successfully" });
     } catch (error) {
         res.status(500).json(error.message);
@@ -39,7 +41,7 @@ async function deleteCategory(req, res) {
 
 // get all categories
 async function getCategories(req, res) {
-    const allCategories = await Category.find({});
+    const allCategories = await Category.find({ userId: req.userId });
     return res.json(allCategories);
 }
 

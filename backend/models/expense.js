@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 require("./category");
+require("./user");
 
 const expenseSchema = new Schema(
     {
@@ -25,7 +26,12 @@ const expenseSchema = new Schema(
             type: Date,
             default: Date.now,
             required: true
-        }
+        },
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: "user",
+            required: true
+        },
     }, { timestamps: true }
 );
 

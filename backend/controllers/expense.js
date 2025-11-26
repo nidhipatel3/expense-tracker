@@ -9,13 +9,15 @@ async function createExpense(req, res) {
         res.status(400).json({ msg: "All fields are required" });
     }
     try {
-        await Expense.create({
+        const expense = await Expense.create({
             type,
             amount,
             description,
             category,
-            date
+            date,
+            userId: req.userId
         })
+        res.json(expense);
         res.status(200).json({ msg: "expense added successfully" });
     } catch (error) {
         res.status(500).json(error.message);
@@ -42,7 +44,7 @@ async function deleteExpense(req, res) {
 
 // get all expenses
 async function getExpenses(req, res) {
-    const allExpenses = await Expense.find().populate('category', 'name');
+    const allExpenses = await Expense.find({ userId: req.userId }).populate('category', 'name');
     return res.json(allExpenses);
 }
 
