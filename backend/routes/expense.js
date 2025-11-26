@@ -1,13 +1,14 @@
 const { Router } = require("express");
 const { createExpense, getExpenses, updateExpense, deleteExpense, getExpenseById } = require("../controllers/expense");
+const { requireAuth } = require("../middlewares/authentication");
 
 const router = Router();
 
-router.post('/addExpense', createExpense);
-router.get('/getExpenses', getExpenses);
+router.post('/addExpense', requireAuth, createExpense);
+router.get('/getExpenses', requireAuth, getExpenses);
 router.route('/:id')
-    .patch(updateExpense)
-    .delete(deleteExpense)
-    .get(getExpenseById);
+    .patch(requireAuth, updateExpense)
+    .delete(requireAuth, deleteExpense)
+    .get(requireAuth, getExpenseById);
 
 module.exports = router;

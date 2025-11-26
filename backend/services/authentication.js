@@ -1,5 +1,4 @@
 const JWT = require("jsonwebtoken");
-
 const secret = "abc@123";
 
 // create token
@@ -11,17 +10,16 @@ function createTokenForUser(user) {
         profileImageURL: user.profileImageURL,
         role: user.role
     };
-    const token = JWT.sign(payload, secret);
-    return token;
+    return JWT.sign(payload, secret, { expiresIn: "7d" });
 }
 
 // validate token
 function validateToken(token) {
-    const payload = JWT.verify(token, secret);
-    return payload;
+    try {
+        return JWT.verify(token, secret);
+    } catch (error) {
+        throw new Error("Invalid token");
+    }
 }
 
-module.exports = {
-    createTokenForUser,
-    validateToken,
-}
+module.exports = { createTokenForUser, validateToken };

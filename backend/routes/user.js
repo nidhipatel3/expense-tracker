@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const { handleUserSignup, handleUserSignin, handleUserLogout, upload } = require("../controllers/user");
-const { getUser } = require("../middlewares/authentication");
+const { requireAuth } = require("../middlewares/authentication");
+
 const router = Router();
 
 router.get("/signup", (req, res) => {
@@ -14,6 +15,6 @@ router.get("/signin", (req, res) => {
 router.post("/signup", upload.single("profileImage"), handleUserSignup);
 router.post("/signin", handleUserSignin);
 router.post("/logout", handleUserLogout);
-router.get("/data", getUser);
+router.get("/data", requireAuth, (req, res) => res.json(req.user));
 
 module.exports = router;

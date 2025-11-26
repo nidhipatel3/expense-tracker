@@ -1,30 +1,24 @@
 const { validateToken } = require("../services/authentication");
-const User = require("../models/user");
 
-// handle authentication
-function checkForAuthenticationCookie(cookieName) {
-    return (req, res, next) => {
+function requireAuth(req, res, next) {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res.status(401).json({ message: "No token provided" });
+    }
 
-        const tokenCookieValue = req.cookies[cookieName];
-        if (!tokenCookieValue) {
-            return next();
+    const token = authHeader.split(" ")[1];
+
+    try {
+        const payload = validateToken(token);
+        if (!payload || !payload._id) {
+            return res.status(401).json({ message: "Invalid token payload" });
         }
-        try {
-            const userPayload = validateToken(tokenCookieValue);
-            req.user = userPayload;
-        } catch (error) { }
-
-        return next();
+        req.userId = payload._id;
+        req.user = payload;
+        next();
+    } catch (err) {
+        return res.status(401).json({ message: "Invalid token" });
     }
 }
 
-// get user
-async function getUser(req, res) {
-    const user = await User.findById(req.user.id);
-    res.json(user);
-}
-
-module.exports = {
-    checkForAuthenticationCookie,
-    getUser,
-}
+module.exports = { requireAuth };
