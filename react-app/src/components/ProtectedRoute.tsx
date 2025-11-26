@@ -8,10 +8,12 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     const { user, loading } = useUser();
+    const token = localStorage.getItem("token");
+
     if (loading) {
         return <div style={{ textAlign: "center", marginTop: "20%" }}>Loading...</div>;
     }
-    if (!user) {
+    if (!user && !token) {
         return <Navigate to="/user/signin" replace />;
     }
     return <>{children}</>;

@@ -19,33 +19,25 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const initUser = () => {
-            if (!document.cookie.includes('token=')) {
-                setUser(null);
-                setLoading(false);
-                return;
-            }
 
-            const storedUser = localStorage.getItem("user");
-            if (storedUser) {
-                try {
-                    const parsedUser = JSON.parse(storedUser);
-                    if (parsedUser && typeof parsedUser === 'object') {
-                        setUser(parsedUser);
-                    } else {
-                        setUser(null);
-                    }
-                } catch (error) {
-                    console.error("Failed to parse stored user:", error);
-                    localStorage.removeItem("user");
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            try {
+                const parsedUser = JSON.parse(storedUser);
+                if (parsedUser && typeof parsedUser === 'object') {
+                    setUser(parsedUser);
+                } else {
                     setUser(null);
                 }
-            } else {
+            } catch (error) {
+                console.error("Failed to parse stored user:", error);
+                localStorage.removeItem("user");
                 setUser(null);
             }
-            setLoading(false);
-        };
-        initUser();
+        } else {
+            setUser(null);
+        }
+        setLoading(false);
     }, []);
 
     return (

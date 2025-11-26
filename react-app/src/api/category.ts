@@ -2,7 +2,13 @@ import axios from "axios";
 import { Category } from "../types";
 
 const API = axios.create({
-  baseURL: "http://localhost:3000/",
+  baseURL: "http://localhost:8001/",
+});
+
+API.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token && config.headers) config.headers.Authorization = `Bearer ${token}`;
+  return config;
 });
 
 export const addCategory = (formData: Category) => {

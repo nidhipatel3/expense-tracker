@@ -1,7 +1,13 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:3000/',
+  baseURL: "http://localhost:8001/",
+});
+
+API.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token && config.headers) config.headers.Authorization = `Bearer ${token}`;
+  return config;
 });
 
 export const signup = async (data: {
@@ -29,14 +35,23 @@ export const signup = async (data: {
   return response.data;
 };
 
-export const signin = (formData: { email: string; password: string }) => {
-  return API.post('/user/signin', formData, { withCredentials: true });
+export const signin = async (formData: { email: string; password: string }) => {
+  const res = await API.post("/user/signin", formData);
+  const { user, token } = res.data;
+  localStorage.setItem("token", token);
+  localStorage.setItem("user", JSON.stringify(user));
+  return { user, token };
 }
 
 export const fetchUser = async () => {
-  return await API.get('/user/data', { withCredentials: true });
+  const res = await API.get("/user/data");
+  return res.data;
 }
 
 export const logout = async () => {
-  return API.post('/user/logout', {}, { withCredentials: true });
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  return API.post('/user/logout', {});
 }
+
+export default API;

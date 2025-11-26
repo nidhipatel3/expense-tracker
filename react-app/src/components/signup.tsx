@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { signup } from '../api/user';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp: React.FC = () => {
 
   const [file, setFile] = useState<File | null>(null);
   const [formData, setFormData] = useState({ fullName: '', email: '', password: '' });
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -29,6 +31,7 @@ const SignUp: React.FC = () => {
     try {
       await signup({ ...formData, profileImageURL: file, });
       alert('User registered successfully');
+      navigate("/user/signin");
     } catch (error: any) {
       alert(error.response?.data?.message || 'Error');
     }
@@ -55,7 +58,7 @@ const SignUp: React.FC = () => {
             <label htmlFor="profileImage" className="form-label">Profile Image</label>
             <input type="file" className="form-control" id="profileImage" name="profileImage" onChange={handleChange} />
           </div>
-          <button type="submit" className="btn btn-primary">Register</button>
+          <button type="submit" className="btn btn-primary">Create Account</button>
         </form>
       </div>
     </div>
