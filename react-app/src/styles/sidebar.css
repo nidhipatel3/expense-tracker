@@ -1,0 +1,27 @@
+.sidebar-wrapper {
+  margin-top: 80px;
+  width: 280px;
+  height: 865px;
+  position: fixed;
+  top: 0;
+  left: -280px;
+  padding: 1rem;
+  overflow-y: auto;
+  transition: left 0.3s ease-in-out;
+  z-index: 1050;
+}
+
+.sidebar-wrapper.open {
+  left: 0;
+}
+
+@media (max-width: 768px) {
+  .sidebar-wrapper {
+    width: 240px;
+    left: -240px;
+  }
+
+  .sidebar-wrapper.open {
+    left: 0;
+  }
+}

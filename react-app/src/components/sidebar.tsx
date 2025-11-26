@@ -2,8 +2,14 @@ import React from "react";
 import { useUser } from "../context/UserContext";
 import { logout } from "../api/user";
 import { NavLink } from "react-router-dom";
+import "../styles/sidebar.css";
 
-const SideBar: React.FC = () => {
+interface SideBarProps {
+  isOpen: boolean;
+  toggle: () => void;
+}
+
+const SideBar: React.FC<SideBarProps> = ({ isOpen, toggle }) => {
   const { setUser, user } = useUser();
 
   // handle logout
@@ -19,38 +25,59 @@ const SideBar: React.FC = () => {
 
   return (
     <div
-      className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
-      style={{ width: "280px", height: "864px" }}
+      className={`sidebar-wrapper d-flex flex-column flex-shrink-0 p-3 text-white bg-dark ${isOpen ? "open" : ""
+        }`}
     >
-      <nav style={{ height: "800px" }}>
+      <i className="bi bi-x-lg mb-3" onClick={toggle}></i>
+      <nav className="flex-grow-1" style={{ height: "800px" }}>
         <ul className="nav nav-pills flex-column mb-auto">
           <li className="nav-item">
-            <NavLink to="/dashboard" className="nav-link" aria-current="page" end >
-              <i className="bi bi-speedometer2 me-2" style={{ width: "16", height: "16" }}></i>
+            <NavLink
+              to="/dashboard"
+              className="nav-link"
+              aria-current="page"
+              end
+            >
+              <i
+                className="bi bi-speedometer2 me-2"
+                style={{ width: "16", height: "16" }}
+              ></i>
               Dashboard
             </NavLink>
           </li>
           <li>
             <NavLink to="/getCategories" className="nav-link text-white">
-              <i className="bi bi-diagram-3-fill me-2" style={{ width: "16", height: "16" }}></i>
+              <i
+                className="bi bi-diagram-3-fill me-2"
+                style={{ width: "16", height: "16" }}
+              ></i>
               Category
             </NavLink>
           </li>
           <li>
             <NavLink to="/addExpense" className="nav-link text-white">
-              <i className="bi bi-wallet me-2" style={{ width: "16", height: "16" }}></i>
+              <i
+                className="bi bi-wallet me-2"
+                style={{ width: "16", height: "16" }}
+              ></i>
               Expense/Income
             </NavLink>
           </li>
           <li>
             <NavLink to="/reports" className="nav-link text-white">
-              <i className="bi bi-journal-text me-2" style={{ width: "16", height: "16" }}></i>
+              <i
+                className="bi bi-journal-text me-2"
+                style={{ width: "16", height: "16" }}
+              ></i>
               Reports
             </NavLink>
           </li>
           <li>
             <NavLink to="/getExpenses" className="nav-link text-white">
-              <i className="bi bi-calendar3 me-2" style={{ width: "16", height: "16" }}></i>
+              <i
+                className="bi bi-calendar3 me-2"
+                style={{ width: "16", height: "16" }}
+              ></i>
               Transactions
             </NavLink>
           </li>
@@ -89,13 +116,13 @@ const SideBar: React.FC = () => {
               <hr className="dropdown-divider" />
             </li>
             <li>
-              <a
+              <NavLink
                 className="dropdown-item"
-                href="/user/logout"
+                to="/user/logout"
                 onClick={handleLogout}
               >
                 Signout
-              </a>
+              </NavLink>
             </li>
           </ul>
         </div>
